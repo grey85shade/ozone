@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-12-2022 a las 22:58:42
--- Versión del servidor: 8.0.21
--- Versión de PHP: 7.3.21
+-- Tiempo de generación: 19-07-2025 a las 13:36:48
+-- Versión del servidor: 8.0.31
+-- Versión de PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,17 +93,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(20) NOT NULL,
   `surname` varchar(20) NOT NULL,
   `pass` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
   `mail` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `user`, `name`, `surname`, `pass`, `mail`) VALUES
-(1, 'grey', 'B', 'Caste', '$2y$10$q2hKNA1EntUD06OeNveAO.I4l2WjCxH/j4A8TOT1Vmuj99BNccEIO', NULL),
-(2, 'blue', 'Cosa', 'Apellido de cosa', '$2y$10$q2hKNA1EntUD06OeNveAO.I4l2WjCxH/j4A8TOT1Vmuj99BNccEIO', NULL);
+INSERT INTO `users` (`id`, `user`, `name`, `surname`, `pass`, `admin`, `mail`) VALUES
+(1, 'grey', 'admin', 'admin', '$2y$10$eO0cS0f1FFnLxXqGAl9fDuFJuLTBdy.XOt6/0ztY.bpwuxff1A3qK', 1, 'admin@admin.com'),
+(2, 'blue', 'Cosa', 'Apellido de cosa', '$2y$10$q2hKNA1EntUD06OeNveAO.I4l2WjCxH/j4A8TOT1Vmuj99BNccEIO', 0, NULL),
+(3, 'TestLogin', 'testloginName', 'testlogin apellidos', '$2y$10$0jkP491GG5Aytf6YLHuOjOAF3OVl5dhcv.kW5LpoIbD8KNR5csckC', 0, 'grey85shade@gmail.com');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

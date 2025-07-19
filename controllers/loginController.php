@@ -20,7 +20,7 @@ class loginController
 
             if ($user !== null && password_verify($p, $user['pass'])) {
                 $se = new sessionManager;
-                $se->setSession($user['user'], $user['id']);
+                $se->setSession($user['user'], $user['id'], $user['admin']);
                 header('Location: /dash');
             }
             else {
@@ -36,5 +36,6 @@ class loginController
         $se->sessionDestroy();
         header('Location: /login');
     }
+
 
 }

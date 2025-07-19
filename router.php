@@ -40,6 +40,11 @@ class router {
                 $this->layout = false;
                 $this->controller = 'ajaxController';
                 break;
+            
+            case 'userConfig' :
+                $this->layout = true;
+                $this->controller = 'userConfigController';
+                break;
 
             case 'login' :
                 $this->layout = false;

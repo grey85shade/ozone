@@ -10,6 +10,7 @@ require ("controllers/dashController.php");
 require ("controllers/ajaxController.php");
 require ("controllers/loginController.php");
 require ("controllers/linksController.php");
+require ("controllers/userConfigController.php");
 
 $router = new router;
 list($controller, $action, $layout, $loggedin, $mobile) = $router->getRoute();

@@ -1,6 +1,7 @@
 <div id="dash-container-links">
     <?php
-    foreach ($grupos as $grupo) {
+    if ($grupos) {
+        foreach ($grupos as $grupo) {
         
     ?>
         <div id="link-grupo-box-<?php echo $grupo['id'];?>">
@@ -33,5 +34,5 @@
                 </div>
             <?php }} ?>
         </div>
-    <?php } ?>
+    <?php } }?>
 </div>
