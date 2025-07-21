@@ -1,4 +1,4 @@
- <?php
+<?php
 
  class dbRepository {
 
@@ -111,6 +111,12 @@
         } else {
             $sql = "UPDATE users SET name = '$name', surname = '$surname', mail = '$mail' WHERE id = $id";
         }
+        return $this->con->query($sql);
+    }
+    public function deleteUserById($id)
+    {
+        $id = intval($id);
+        $sql = "DELETE FROM users WHERE id = $id";
         return $this->con->query($sql);
     }
 }

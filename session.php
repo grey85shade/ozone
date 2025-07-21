@@ -3,7 +3,9 @@ class sessionManager
 {
     function __construct() 
     {
-        session_start();
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
     }
 
     public function setSession ($user, $id, $admin = null)
@@ -29,5 +31,18 @@ class sessionManager
             return true;
         }
         return false;
+    }
+
+    public function setFlash($message, $type = 'success') {
+        $_SESSION['flash'] = ['message' => $message, 'type' => $type];
+    }
+    
+    public function getFlash() {
+        if (isset($_SESSION['flash'])) {
+            $flash = $_SESSION['flash'];
+            unset($_SESSION['flash']);
+            return $flash;
+        }
+        return null;
     }
 }

@@ -4,16 +4,8 @@ require ("session.php");
 require ("dbRepository.php");
 require ("router.php");
 
-// incluimos todos los controllers
-require ("controllers/mainController.php");
-require ("controllers/dashController.php");
-require ("controllers/ajaxController.php");
-require ("controllers/loginController.php");
-require ("controllers/linksController.php");
-require ("controllers/userConfigController.php");
-
 $router = new router;
-list($controller, $action, $layout, $loggedin, $mobile) = $router->getRoute();
+list($controller, $action, $layout, $loggedin, $mobile, $urlVariable) = $router->getRoute();
 
 // Si elcontroller no es publico miramos si hay login
 if ($loggedin === true) {
@@ -36,5 +28,10 @@ if ($layout === true) {
     
 } else {
     $controllerInstance = new $controller;
-    $controllerInstance->$action();
+    // Detecta si hay parámetros extra en la URL
+    if (!empty($urlVariable)) {
+        $controllerInstance->$action($urlVariable);
+    } else {
+        $controllerInstance->$action();
+    }
 }

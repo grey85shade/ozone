@@ -21,8 +21,9 @@ class router {
         $this->selectController();
         $this->actionValid();
         $this->isMobile();
+        $varUrl = isset($this->map[3]) ? $this->map[3] : null;
         
-        return [$this->controller, $this->action, $this->layout, $this->loggedin, $this->mobile];
+        return [$this->controller, $this->action, $this->layout, $this->loggedin, $this->mobile, $varUrl];
     }
 
     
@@ -64,6 +65,7 @@ class router {
     // Comprobamos si la accion existe
     private function actionValid ()
     {
+        require_once("controllers/" . $this->controller . ".php");
         $disponibleActions = get_class_methods($this->controller);
         if (!in_array($this->action, $disponibleActions)) {
             $this->controller = 'mainController';

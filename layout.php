@@ -24,10 +24,26 @@
             <div id="main-content">
                 <?php 
                     $controllerInstance = new $controller;
-                    $controllerInstance->$action();
+                    //$controllerInstance->$action();
+                    if (!empty($urlVariable)) {
+                        $controllerInstance->$action($urlVariable);
+                    } else {
+                        $controllerInstance->$action();
+                    }
                 ?>
                 
             </div>
         </div>
+        
+        <?php
+            if (isset($_SESSION['flash'])) {
+                $flash = $_SESSION['flash'];
+                unset($_SESSION['flash']);
+        ?>
+            <div class="flash-message <?php echo $flash['type']; ?>">
+                <?php echo htmlspecialchars($flash['message']); ?>
+                <button onclick="this.parentElement.style.display='none';" class="close-flash">&times;</button>
+            </div>
+        <?php } ?>
     </body>
 </html>

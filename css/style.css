@@ -218,3 +218,36 @@ user forms
 .users-table .actions i {
     font-size: 18px;
 }
+
+.flash-message {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 15px 40px 15px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    max-width: 500px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.flash-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.flash-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.close-flash {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}

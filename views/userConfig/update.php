@@ -1,6 +1,6 @@
 <div class="login">
     <h1>Modificar Usuario</h1>
-    <form action="/userConfig/updateAction" method="post">
+    <form action="/userConfig/update" method="post">
         <label for="name"><i class="fas fa-id-card"></i></label>
         <input type="text" name="name" placeholder="Nombre" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
         <label for="surname"><i class="fas fa-id-card-alt"></i></label>

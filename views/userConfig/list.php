@@ -23,7 +23,9 @@
                     <a href="/userConfig/edit/<?php echo $user['id']; ?>" class="edit-icon">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="/userConfig/delete/<?php echo $user['id']; ?>" class="delete-icon">
+                    <a href="/userConfig/delete/<?php echo $user['id']; ?>" 
+                       class="delete-icon" 
+                       onclick="return confirm('¿Seguro que quieres eliminar este usuario?');">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
