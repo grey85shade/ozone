@@ -88,4 +88,31 @@ class userConfigController
         header('Location: /userConfig/list');
         exit;
     }
+
+    public function updateUser()
+    {
+        if (!isset($_SESSION['idUser']) || $_SESSION['admin'] != 1) {
+            echo json_encode(['success' => false, 'error' => 'No autorizado']);
+            exit;
+        }
+        $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+        $user = AppUtils::sanitize($_POST['user']);
+        $name = AppUtils::sanitize($_POST['name']);
+        $surname = AppUtils::sanitize($_POST['surname']);
+        $mail = AppUtils::sanitize($_POST['mail']);
+        $admin = isset($_POST['admin']) ? (int)$_POST['admin'] : 0;
+        $password = isset($_POST['password']) && $_POST['password'] !== '' ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+
+        $db = new dbRepository();
+        $result = $db->updateUserFull($id, $user, $name, $surname, $mail, $admin, $password);
+
+        if ($result) {
+            AppUtils::setFlash('Usuario modificado correctamente.', 'success');
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Error al modificar']);
+        }
+        header('Location: /userConfig/list');
+        exit;
+    }
 }

@@ -17,6 +17,11 @@
             die("Connection failed: " . $this->con->connect_error);
         }
     }
+    
+    function  __destruct()
+    {
+        $this->con->close();
+    }
 
     // Agregar un nuevo usuario
     public function addUser($user, $name, $surname, $password, $mail)
@@ -36,11 +41,7 @@
         $sql = "INSERT INTO users (user, name, surname, pass, mail) VALUES ('$user', '$name', '$surname', '$password', '$mail')";
         return $this->con->query($sql);
     }
-    function  __destruct()
-    {
-        $this->con->close();
-    }
-
+    
     public function getUser ($user) {
         
         $sql = "SELECT * FROM users where user = '".$user."'";
@@ -49,28 +50,6 @@
         if ($result->num_rows === 1) {
             //return $result->fetch_all(MYSQLI_ASSOC);
             return $result->fetch_assoc();
-        } else {
-            return null;
-        }
-    }
-
-    public function getLinksByUser ($id)
-    {
-        $sql = "SELECT * FROM links where id_user = ".$id;
-        $result = $this->con->query($sql);
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return null;
-        }
-    }
-
-    public function getGruposByUser ($id)
-    {
-        $sql = "SELECT * FROM link_groups where id_user = ".$id;
-        $result = $this->con->query($sql);
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
         } else {
             return null;
         }
@@ -110,6 +89,23 @@
             $sql = "UPDATE users SET name = '$name', surname = '$surname', mail = '$mail', pass = '$password' WHERE id = $id";
         } else {
             $sql = "UPDATE users SET name = '$name', surname = '$surname', mail = '$mail' WHERE id = $id";
+        }
+        return $this->con->query($sql);
+    }
+    public function updateUserFull($id, $user, $name, $surname, $mail, $admin, $password = null)
+    {
+        $id = intval($id);
+        $user = $this->con->real_escape_string($user);
+        $name = $this->con->real_escape_string($name);
+        $surname = $this->con->real_escape_string($surname);
+        $mail = $this->con->real_escape_string($mail);
+        $admin = intval($admin);
+
+        if ($password) {
+            $password = $this->con->real_escape_string($password);
+            $sql = "UPDATE users SET user='$user', name='$name', surname='$surname', mail='$mail', admin=$admin, pass='$password' WHERE id=$id";
+        } else {
+            $sql = "UPDATE users SET user='$user', name='$name', surname='$surname', mail='$mail', admin=$admin WHERE id=$id";
         }
         return $this->con->query($sql);
     }

@@ -1,73 +1,21 @@
-function modeDeadlinerItem(id, column)
-{
-    var newVal = $('#'+id+'-'+column).val();
-    $.ajax({
-        data: {"id" : id, "column" : column, "newVal" : newVal},
-        type: "POST",
-        dataType: "html",
-        url: "modify.php",
-        success: function(data)
-        {
-            if (column == 'ini' || column == 'end') {
-                location.reload();
-            } else {
-                $('#'+id+'-'+column).css("border", "1px solid #b5fbb5");
-            }
-            
-        },
-        error : function(xhr, status, data) {
-            alert(data);
-        }
-     });
+
+function closeEditModal() {
+    document.getElementById('editUserModal').style.display = 'none';
 }
 
-function deleteItem(id)
-{
-    if (confirm("Seguro?") == true) {
-        $.ajax({
-            data: {"id" : id, "delete" : "true"},
-            type: "POST",
-            dataType: "html",
-            url: "modify.php",
-            success: function(data)
-            {
-                location.reload();
-            },
-            error : function(xhr, status, data) {
-                alert(data);
+function openEditUserModal(userId) {
+    fetch('/ajax/getUser/' + userId)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.id) {
+                document.getElementById('edit-id').value = data.id;
+                document.getElementById('edit-user').value = data.user;
+                document.getElementById('edit-name').value = data.name;
+                document.getElementById('edit-surname').value = data.surname;
+                document.getElementById('edit-mail').value = data.mail;
+                document.getElementById('edit-admin').value = data.admin;
+                document.getElementById('edit-password').value = '';
+                document.getElementById('editUserModal').style.display = 'block';
             }
         });
-    }
-}
-
-function showNewLink(id)
-{
-    $('#newLinkBox-'+id).slideToggle();
-    
-}
- 
-function saveNewLink(id)
-{
-    var newName = $('#newName-'+id).val();
-    var newSubGrupo = $('#newSubGrupo-'+id).val();
-    var newLink = $('#newLink-'+id).val();
-
-    $.ajax({
-        data: {"grupo" : id, "subGrupo" : newSubGrupo, "name" : newName, "link" : newLink},
-        type: "POST",
-        dataType: "html",
-        url: "/ajax/saveLink",
-        success: function(data)
-        {
-            $('#link-grupo-box-'+id).append(data);
-            
-            $('#newName-'+id).val('');
-            $('#newSubGrupo-'+id).val('');
-            $('#newLink-'+id).val('');
-        },
-        error : function(xhr, status, data) {
-            alert('ERROR!!');
-            alert(data);
-        }
-     });
 }
