@@ -95,6 +95,7 @@ class userConfigController
             echo json_encode(['success' => false, 'error' => 'No autorizado']);
             exit;
         }
+        AppUtils::logEvent('update user', 'info');
         $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
         $user = AppUtils::sanitize($_POST['user']);
         $name = AppUtils::sanitize($_POST['name']);
@@ -108,7 +109,7 @@ class userConfigController
 
         if ($result) {
             AppUtils::setFlash('Usuario modificado correctamente.', 'success');
-            echo json_encode(['success' => true]);
+            AppUtils::logEvent('User ' . $name . ' Modificado correctamente', 'info');
         } else {
             echo json_encode(['success' => false, 'error' => 'Error al modificar']);
         }
